@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.pe.patissier.domain.BoardVO;
+import kr.pe.patissier.domain.Criteria;
 import kr.pe.patissier.persistence.BoardDAO;
 
 @Service
@@ -57,6 +58,13 @@ public class BoardServiceImpl implements BoardService {
 	public void modify2(Map map) throws Exception {
 		// TODO Auto-generated method stub
 		dao.update2(map);
+	}
+
+	@Override
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+
+		return dao.listCriteria(cri);
 	}
 
 }

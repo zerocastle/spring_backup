@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.pe.patissier.domain.BoardVO;
+import kr.pe.patissier.domain.Criteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -22,7 +23,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	}
 
-	@Override 
+	@Override
 	public BoardVO read(Integer bno) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectOne("board.read", bno);
@@ -31,6 +32,7 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void update(BoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("디비 session 으로 넘오 온값 : " + vo.toString());
 		session.update("board.update", vo);
 
 	}
@@ -58,8 +60,24 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void update2(Map map) throws Exception {
 		// TODO Auto-generated method stub
-		session.update("board.update2",map);
-		
+		session.update("board.update2", map);
+
+	}
+
+	@Override
+	public List<BoardVO> listPage(int page) throws Exception {
+		// TODO Auto-generated method stub
+		if (page <= 0) {
+			page = 1;
+		}
+		page = (page - 1) * 10;
+		return session.selectList("board.listPage", page);
+	}
+
+	@Override
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("board.listCriteria",cri);
 	}
 
 }

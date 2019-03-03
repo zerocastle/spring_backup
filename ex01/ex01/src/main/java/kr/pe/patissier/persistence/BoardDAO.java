@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.pe.patissier.domain.BoardVO;
+import kr.pe.patissier.domain.Criteria;
 
 public interface BoardDAO {
 
@@ -20,5 +21,9 @@ public interface BoardDAO {
 	public void delete2(Map map) throws Exception;
 
 	public List<BoardVO> listAll() throws Exception;
+	
+	public List<BoardVO> listPage(int page) throws Exception;
+	
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception;
 
 }

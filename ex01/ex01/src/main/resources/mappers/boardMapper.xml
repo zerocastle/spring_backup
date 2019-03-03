@@ -11,16 +11,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="read" resultType="BoardVO">
-		select * from tb1_board where bno = #{bno}
+		select * from tb1_board where bno =
+		#{bno}
 	</select>
 
 	<update id="update">
-		update tb1_board set title =#{title}, content =#{content}
+		update tb1_board set title =#{title}, content
+		=#{content}
 		where bno = #{bno}
 	</update>
 
 	<update id="update2" parameterType="hashmap">
-		update tb1_board set title =#{title}, content =#{content}
+		update tb1_board set title
+		=#{title}, content =#{content}
 		where bno = #{bno}
 	</update>
 
@@ -29,7 +32,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	<delete id="delete2" parameterType="hashmap">
-		delete from tb1_board where bno = #{bno}
+		delete from tb1_board where
+		bno = #{bno}
 	</delete>
 
 	<select id="listAll" resultType="BoardVO">
@@ -43,29 +47,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  ]]>
 	</select>
 
-	<!-- &gt; -->
+	<select id="listPage" resultType="BoardVO">
+		SELECT BNO
+		, TITLE
+		, CONTENT
+		, WRITER
+		, REGDATE
+		, VIEWCNT
+		FROM TB1_BOARD
+		WHERE BNO &gt; 0
+		ORDER BY BNO DESC
+		LIMIT #{page}, 10
+	</select>
 
-
-	<!-- <select id="listPage" resultType="BoardVO"> <![CDATA[ select bno, title, 
-		content, writer, regdate, viewcnt from tbl_board where bno > 0 order by bno 
-		desc, regdate desc limit #{page}, 10 ]]> </select> <select id="listCriteria" 
-		resultType="BoardVO"> <![CDATA[ select bno, title, content, writer, regdate, 
-		viewcnt from tbl_board where bno > 0 order by bno desc, regdate desc limit 
-		#{pageStart}, #{perPageNum} ]]> </select> <select id="countPaging" resultType="int"> 
-		<![CDATA[ select count(bno) from tbl_board where bno > 0 ]]> </select> <sql 
-		id="search"> <if test="searchType != null" > <if test="searchType == 't'.toString()"> 
-		and title like CONCAT('%', #{keyword}, '%') </if> <if test="searchType == 
-		'c'.toString()"> and content like CONCAT('%', #{keyword}, '%') </if> <if 
-		test="searchType == 'w'.toString()"> and writer like CONCAT('%', #{keyword}, 
-		'%') </if> <if test="searchType == 'tc'.toString()"> and ( title like CONCAT('%', 
-		#{keyword}, '%') OR content like CONCAT('%', #{keyword}, '%')) </if> <if 
-		test="searchType == 'cw'.toString()"> and ( content like CONCAT('%', #{keyword}, 
-		'%') OR writer like CONCAT('%', #{keyword}, '%')) </if> <if test="searchType 
-		== 'tcw'.toString()"> and ( title like CONCAT('%', #{keyword}, '%') OR content 
-		like CONCAT('%', #{keyword}, '%') OR writer like CONCAT('%', #{keyword}, 
-		'%')) </if> </if> </sql> <select id="listSearch" resultType="BoardVO"> <![CDATA[ 
-		select * from tbl_board where bno > 0 ]]> <include refid="search"></include> 
-		<![CDATA[ order by bno desc limit #{pageStart}, #{perPageNum} ]]> </select> 
-		<select id="listSearchCount" resultType="int"> <![CDATA[ select count(bno) 
-		from tbl_board where bno > 0 ]]> <include refid="search"></include> </select> -->
+	<select id="listCriteria" resultType="BoardVO">
+		SELECT BNO
+		, TITLE
+		, CONTENT
+		, WRITER
+		, REGDATE
+		, VIEWCNT
+		FROM TB1_BOARD
+		WHERE BNO &gt; 0
+		ORDER BY BNO DESC
+		LIMIT #{pageStart},#{perPageNum}
+	</select>
 </mapper>
