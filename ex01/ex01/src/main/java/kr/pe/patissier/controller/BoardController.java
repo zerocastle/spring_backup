@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.pe.patissier.domain.BoardVO;
+import kr.pe.patissier.domain.Criteria;
 import kr.pe.patissier.service.BoardService;
 
 @Controller
@@ -114,22 +115,27 @@ public class BoardController {
 
 		return "redirect:/board/listAll";
 	}
-	
+
 	@RequestMapping(value = "modify2", method = RequestMethod.GET)
-	public String modifyGET2(@RequestParam Map map , Model model) throws Exception {
-		model.addAttribute(boardService.read((int)map.get("bno")));
+	public String modifyGET2(@RequestParam Map map, Model model) throws Exception {
+		model.addAttribute(boardService.read((int) map.get("bno")));
 		return "board/modify";
 	}
-	
+
 	@RequestMapping(value = "modify2", method = RequestMethod.POST)
-	public String modifyPOST2(@RequestParam Map map , RedirectAttributes rttr) throws Exception {
+	public String modifyPOST2(@RequestParam Map map, RedirectAttributes rttr) throws Exception {
 		logger.info("mod post2 ...");
 		boardService.modify2(map);
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
 		return "redircet:/board/listAll";
 	}
-	
-	
+
+	@RequestMapping(value = "listCri", method = RequestMethod.GET)
+	public void listCri(Criteria cri, Model model) throws Exception {
+		logger.info("show list page with Criteria ... ....");
+		model.addAttribute("list", boardService.listCriteria(cri));
+
+	}
 
 }
