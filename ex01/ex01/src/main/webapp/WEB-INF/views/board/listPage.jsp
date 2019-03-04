@@ -38,9 +38,9 @@
 
 							<tr>
 								<td>${boardVO.bno}</td>
-								<td><a
+								<%-- <td><a
 									href='/board/readPage${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${boardVO.bno}'>
-										${boardVO.title}</a></td>
+										${boardVO.title}</a></td> --%>
 								<td>${boardVO.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 										value="${boardVO.regdate}" /></td>
@@ -54,8 +54,8 @@
 				<!-- /.box-body -->
 
 
-				<div class="box-footer">
-<%-- 
+				<%-- <div class="box-footer">
+					
 					<div class="text-center">
 						<ul class="pagination">
 
@@ -80,8 +80,8 @@
 							</c:if>
 
 						</ul>
-					</div>
- --%>
+					</div> --%>
+
 
 					<div class="text-center">
 						<ul class="pagination">
@@ -99,8 +99,7 @@
 							</c:forEach>
 
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-								<li><a
-									href="${pageMaker.endPage +1}">&raquo;</a></li>
+								<li><a href="${pageMaker.endPage +1}">&raquo;</a></li>
 							</c:if>
 
 						</ul>
@@ -119,8 +118,8 @@
 <!-- /.content -->
 
 <form id="jobForm">
-  <input type='hidden' name="page" value=${pageMaker.cri.perPageNum}>
-  <input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum}>
+	<input type='hidden' name="page" value=${pageMaker.cri.perPageNum}>
+	<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum}>
 </form>
 
 
@@ -130,19 +129,18 @@
 	if (result == 'SUCCESS') {
 		alert("처리가 완료되었습니다.");
 	}
-	
-	$(".pagination li a").on("click", function(event){
-		
-		event.preventDefault(); 
-		
+
+	$(".pagination li a").on("click", function(event) {
+
+		event.preventDefault();
+
 		var targetPage = $(this).attr("href");
-		
+
 		var jobForm = $("#jobForm");
 		jobForm.find("[name='page']").val(targetPage);
-		jobForm.attr("action","/board/listPage").attr("method", "get");
+		jobForm.attr("action", "/board/listPage").attr("method", "get");
 		jobForm.submit();
 	});
-	
 </script>
 
 <%@include file="../include/footer.jsp"%>

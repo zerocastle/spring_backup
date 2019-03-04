@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.pe.patissier.domain.BoardVO;
 import kr.pe.patissier.domain.Criteria;
+import kr.pe.patissier.domain.PageMaker;
 import kr.pe.patissier.service.BoardService;
 
 @Controller
@@ -132,10 +133,25 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "listCri", method = RequestMethod.GET)
-	public void listCri(Criteria cri, Model model) throws Exception {
+	public String listCri(Criteria cri, Model model) throws Exception {
 		logger.info("show list page with Criteria ... ....");
 		model.addAttribute("list", boardService.listCriteria(cri));
 
+		return "board/listCri";
+
+	}
+	// test 
+	@RequestMapping(value = "listPage")
+	public String listpage(Criteria cri, Model model) throws Exception {
+		logger.info(cri.toString());
+
+		model.addAttribute("list", boardService.listCriteria(cri));
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(13);
+		model.addAttribute("pageMaker", pageMaker);
+		return "board/listPage";
 	}
 
 }
