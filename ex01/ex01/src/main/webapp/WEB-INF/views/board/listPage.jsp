@@ -41,6 +41,9 @@
 								<%-- <td><a
 									href='/board/readPage${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${boardVO.bno}'>
 										${boardVO.title}</a></td> --%>
+										
+									<td>${boardVO.title }</td>
+										
 								<td>${boardVO.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 										value="${boardVO.regdate}" /></td>
@@ -82,7 +85,7 @@
 						</ul>
 					</div> --%>
 
-
+					<!-- 페이징 처리 -->
 					<div class="text-center">
 						<ul class="pagination">
 
@@ -118,7 +121,7 @@
 <!-- /.content -->
 
 <form id="jobForm">
-	<input type='hidden' name="page" value=${pageMaker.cri.perPageNum}>
+	<input type='hidden' name="page" value="">
 	<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum}>
 </form>
 

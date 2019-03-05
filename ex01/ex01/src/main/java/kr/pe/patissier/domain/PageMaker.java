@@ -35,6 +35,20 @@ public class PageMaker {
 
 		prev = startPage == 1 ? false : true;
 		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
+		System.out.println("===================================================="
+				+ ""
+				+ ""
+				+ ""
+				+ ""
+				+ ""
+				+ ""
+				+ ""
+				+ ""
+				+ ""
+				+ "============================================================"
+				+ "calcData() 메서드 호출.......");
+		System.out.println("토탈 카운트 : " + this.totalCount + " " + "마지막 페이지" + this.endPage + " " + "앞에 갈수 있다." +  this.prev +"" + "" +  this.startPage + " " + this.next);	
+		
 	}
 
 	public int getStartPage() {

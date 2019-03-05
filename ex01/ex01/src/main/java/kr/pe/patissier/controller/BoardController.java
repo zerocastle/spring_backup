@@ -140,10 +140,11 @@ public class BoardController {
 		return "board/listCri";
 
 	}
-	// test 
+
+	// test
 	@RequestMapping(value = "listPage")
 	public String listpage(Criteria cri, Model model) throws Exception {
-		logger.info(cri.toString());
+		logger.info("listPage 메소드 호출 시  : " + cri.toString());
 
 		model.addAttribute("list", boardService.listCriteria(cri));
 
