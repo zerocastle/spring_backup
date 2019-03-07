@@ -42,7 +42,7 @@
 									href='/board/readPage${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${boardVO.bno}'>
 										${boardVO.title}</a></td> --%>
 										
-									<td>${boardVO.title }</td>
+									<td><a href="">${boardVO.title }</a></td>
 										
 								<td>${boardVO.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"

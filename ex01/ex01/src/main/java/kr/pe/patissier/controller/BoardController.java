@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -143,14 +144,14 @@ public class BoardController {
 
 	// test
 	@RequestMapping(value = "listPage")
-	public String listpage(Criteria cri, Model model) throws Exception {
+	public String listpage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		logger.info("listPage 메소드 호출 시  : " + cri.toString());
 
 		model.addAttribute("list", boardService.listCriteria(cri));
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(13);
+		pageMaker.setTotalCount(boardService.listCountCriteria(cri));
 		model.addAttribute("pageMaker", pageMaker);
 		return "board/listPage";
 	}

@@ -77,7 +77,13 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
-		return session.selectList("board.listCriteria",cri);
+		return session.selectList("board.listCriteria", cri);
+	}
+
+	@Override
+	public int countPagin(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.countPagin",cri);
 	}
 
 }
