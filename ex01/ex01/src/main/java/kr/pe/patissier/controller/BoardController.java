@@ -29,7 +29,6 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
-
 	@RequestMapping(value = "register", method = RequestMethod.GET)
 	public String registerGET(BoardVO board, Model model, HttpServletRequest rqu, HttpServletResponse res)
 			throws Exception {
@@ -66,15 +65,6 @@ public class BoardController {
 		model.addAttribute(boardService.read(bno));
 
 	}
-	
-	//pageMaker query 부분 query readpage
-	@RequestMapping(value="readPage" , method=RequestMethod.GET)
-	public String readPage(@RequestParam("bno") int bno , @ModelAttribute("cri") Criteria cri , Model model) throws Exception{
-		logger.info("pageMaker 부분 : " + bno);
-		model.addAttribute(boardService.read(bno));
-		return "/board/readPage";
-	}	
-	
 
 	@RequestMapping(value = "remove", method = RequestMethod.POST)
 	public String remove(@RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception {
@@ -85,14 +75,14 @@ public class BoardController {
 		return "redirect:/board/listAll";
 	}
 
-	@RequestMapping(value = "remove2", method = RequestMethod.POST)
-	public String remove2(@RequestParam Map map, RedirectAttributes rttr) throws Exception {
-
-		boardService.remove2(map);
-		rttr.addFlashAttribute("msg", "SUCCESS");
-		System.out.println("remove2 메서드 실행 했당 ~~!!!!");
-		return "redirect:/board/listAll";
-	}
+//	@RequestMapping(value = "remove2", method = RequestMethod.POST)
+//	public String remove2(@RequestParam Map map, RedirectAttributes rttr) throws Exception {
+//
+//		boardService.remove2(map);
+//		rttr.addFlashAttribute("msg", "SUCCESS");
+//		System.out.println("remove2 메서드 실행 했당 ~~!!!!");
+//		return "redirect:/board/listAll";
+//	}
 
 	@RequestMapping(value = "modify", method = RequestMethod.GET)
 	public void modifyGET(int bno, Model model) throws Exception {
@@ -131,6 +121,8 @@ public class BoardController {
 		return "board/listCri";
 
 	}
+	
+	/*페이징 처리한 부분 최종 컨트롤러*/
 
 	// test 페이징 처리
 	@RequestMapping(value = "listPage")
@@ -144,6 +136,37 @@ public class BoardController {
 		pageMaker.setTotalCount(boardService.listCountCriteria(cri));
 		model.addAttribute("pageMaker", pageMaker);
 		return "board/listPage";
+	}
+
+	// pageMaker query 부분 query readpage
+	@RequestMapping(value = "readPage", method = RequestMethod.GET)
+	public String readPage(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model)
+			throws Exception {
+		logger.info("pageMaker 부분 : " + bno);
+		model.addAttribute(boardService.read(bno));
+		return "/board/readPage";
+	}
+	// remove
+	@RequestMapping(value = "removePage", method = RequestMethod.POST)
+	public String remove2(@RequestParam Map map, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr)
+			throws Exception {
+		// 폼에 있는 데이터들이 Map으로 넘오온다 
+		logger.info("remove page 부분 : " + cri.toString());
+		boardService.remove2(map);
+		rttr.addFlashAttribute("page", cri.getPage());
+		rttr.addFlashAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		return "redirect:/board/listPage";
+	}
+	
+	//modify
+	@RequestMapping(value = "modifyPage", method = RequestMethod.POST)
+	public String modify2(@RequestParam("bno") int bno ,  @ModelAttribute("cri") Criteria cri,Model model)
+			throws Exception {
+		boardService.read(bno);
+		
+		model.addAttribute("boardVO",boardService.read(bno));
+		return "redirect:/board/listPage";
 	}
 
 }
