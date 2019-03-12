@@ -38,11 +38,9 @@
 
 							<tr>
 								<td>${boardVO.bno}</td>
-								<%-- <td><a
+								<td><a
 									href='/board/readPage${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${boardVO.bno}'>
-										${boardVO.title}</a></td> --%>
-										
-									<td><a href="">${boardVO.title }</a></td>
+										${boardVO.title}</a></td> 
 										
 								<td>${boardVO.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
@@ -56,7 +54,8 @@
 				</div>
 				<!-- /.box-body -->
 
-
+				
+				<!-- 페이징 메이커 쿼리문을 이용한 결과물 -->
 				<%-- <div class="box-footer">
 					
 					<div class="text-center">

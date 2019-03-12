@@ -85,6 +85,15 @@ public class BoardController {
 		model.addAttribute(boardService.read(bno));
 
 	}
+	
+	//pageMaker query 부분 query
+	@RequestMapping(value="readPage" , method=RequestMethod.GET)
+	public String readPage(@RequestParam("bno") int bno , Model model) throws Exception{
+		logger.info("pageMaker 부분 : " + bno);
+		model.addAttribute(boardService.read(bno));
+		return "/board/read";
+	}	
+	
 
 	@RequestMapping(value = "remove", method = RequestMethod.POST)
 	public String remove(@RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception {
@@ -142,7 +151,7 @@ public class BoardController {
 
 	}
 
-	// test
+	// test 페이징 처리
 	@RequestMapping(value = "listPage")
 	public String listpage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		logger.info("listPage 메소드 호출 시  : " + cri.toString());

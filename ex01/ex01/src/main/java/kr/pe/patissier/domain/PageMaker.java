@@ -1,5 +1,8 @@
 package kr.pe.patissier.domain;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class PageMaker {
 	private int totalCount;
 	private int startPage;
@@ -92,5 +95,17 @@ public class PageMaker {
 	public void setCri(Criteria cri) {
 		this.cri = cri;
 	}
-
+	
+	// UriComponent를 통한 쿼리 검색
+	
+	public String makeQuery(int page) {
+		
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.build();
+		
+		return uriComponents.toUriString();
+	}
+	
 }
