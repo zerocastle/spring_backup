@@ -29,12 +29,6 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
-//	@RequestMapping(value = "register", method = RequestMethod.GET)
-//	public void registerGET(BoardVO board, Model model, HttpServletRequest rqu, HttpServletResponse res)
-//			throws Exception {
-//		logger.info("register get ...");
-//
-//	}
 
 	@RequestMapping(value = "register", method = RequestMethod.GET)
 	public String registerGET(BoardVO board, Model model, HttpServletRequest rqu, HttpServletResponse res)
@@ -44,19 +38,6 @@ public class BoardController {
 		return "/board/register";
 
 	}
-
-//	@RequestMapping(value = "register", method = RequestMethod.POST)
-//	public void registerPOST(BoardVO board, Model model, HttpServletRequest rqu, HttpServletResponse res)
-//			throws Exception {
-//		logger.info("register post ...");
-//		logger.info(board.toString());
-//
-//		boardService.regist(board);
-//		model.addAttribute("result", "success");
-//		res.sendRedirect("/board/listAll"); // 아래 메서드를 호출 하게 만든다.
-////		return "board/success";
-//
-//	}
 
 	@RequestMapping(value = "register", method = RequestMethod.POST)
 	public String registerPOST(BoardVO board, Model model, RedirectAttributes re) throws Exception {
@@ -86,12 +67,12 @@ public class BoardController {
 
 	}
 	
-	//pageMaker query 부분 query
+	//pageMaker query 부분 query readpage
 	@RequestMapping(value="readPage" , method=RequestMethod.GET)
-	public String readPage(@RequestParam("bno") int bno , Model model) throws Exception{
+	public String readPage(@RequestParam("bno") int bno , @ModelAttribute("cri") Criteria cri , Model model) throws Exception{
 		logger.info("pageMaker 부분 : " + bno);
 		model.addAttribute(boardService.read(bno));
-		return "/board/read";
+		return "/board/readPage";
 	}	
 	
 

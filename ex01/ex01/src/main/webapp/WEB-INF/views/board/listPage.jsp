@@ -99,7 +99,7 @@
 									<a href="${idx}">${idx}</a>
 								</li>
 							</c:forEach>
-
+ 
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 								<li><a href="${pageMaker.endPage +1}">&raquo;</a></li>
 							</c:if>
@@ -120,7 +120,7 @@
 <!-- /.content -->
 
 <form id="jobForm">
-	<input type='hidden' name="page" value="">
+	<input type='hidden' name="page" value=${pageMaker.cri.perPageNum}>
 	<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum}>
 </form>
 
