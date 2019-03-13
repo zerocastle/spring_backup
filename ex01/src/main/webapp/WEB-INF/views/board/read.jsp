@@ -61,12 +61,12 @@
 						});
 
 						$(".btn-danger").on("click", function() {
-							formObj.attr("action", "/board/remove");
+							formObj.attr("action", "/board/remove2");
 							formObj.submit();
 						});
 
 						$(".btn-primary").on("click", function() {
-							self.location = "/board/listAll";
+							self.location = "/board/listPage";
 						});
 
 					});

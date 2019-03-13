@@ -27,7 +27,7 @@
 							<th style="width: 40px">VIEWCNT</th>
 						</tr>
 
-						<div>넘어온 값 : ${requestScope.msg }</div>
+						<div>넘어온 값 : ${requestScope.result }</div>
 
 
 						<c:forEach items="${list}" var="boardVO">

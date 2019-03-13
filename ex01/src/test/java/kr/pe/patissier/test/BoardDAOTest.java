@@ -1,5 +1,7 @@
 package kr.pe.patissier.test;
 
+import java.util.List;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.pe.patissier.domain.BoardVO;
+import kr.pe.patissier.domain.Criteria;
 import kr.pe.patissier.persistence.BoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,7 +22,8 @@ public class BoardDAOTest {
 	@Autowired
 	private BoardDAO dao;
 
-	@Test 
+	@Test
+	@Ignore
 	public void test() {
 		try {
 			Logger.info(dao.read(1).toString());
@@ -29,7 +33,8 @@ public class BoardDAOTest {
 		}
 	}
 
-	@Test @Ignore
+	@Test
+	@Ignore
 	public void testUpdate() throws Exception {
 		BoardVO board = new BoardVO();
 		board.setBno(1);
@@ -39,18 +44,42 @@ public class BoardDAOTest {
 
 	}
 
-	@Test @Ignore
+	@Test
+	@Ignore
 	public void testDelete() throws Exception {
-//		dao.delete(1);
+		dao.delete(1);
 	}
 
-	@Test @Ignore
+	@Test
+	@Ignore
 	public void testCreate() throws Exception {
 		BoardVO board = new BoardVO();
 		board.setTitle("hellow");
 		board.setContent("fuck");
 		board.setWriter("kys");
 		dao.create(board);
+	}
+
+	@Test @Ignore
+	public void testListPage() throws Exception {
+		int page = 2;
+		List<BoardVO> list = dao.listPage(page);
+
+		for (BoardVO boardVO : list) {
+			Logger.info(boardVO.getBno() + " : " + boardVO.getTitle());
+		}
+	}
+	
+	@Test
+	public void testListCriteria() throws Exception {
+		Criteria cri = new Criteria();
+		cri.setPage(2);
+		cri.setPerPageNum(10);
+		List<BoardVO> list = dao.listCriteria(cri);
+
+		for (BoardVO boardVO : list) {
+			Logger.info(boardVO.getBno() + " : " + boardVO.getTitle());
+		}
 	}
 
 }
