@@ -47,7 +47,7 @@ public class BoardController {
 //		model.addAttribute("result", "success");
 
 		re.addFlashAttribute("msg", "SUCCESS");
-		return "redirect:/board/listAll";
+		return "redirect:/board/listPage";
 
 	}
 
@@ -121,8 +121,8 @@ public class BoardController {
 		return "board/listCri";
 
 	}
-	
-	/*페이징 처리한 부분 최종 컨트롤러*/
+
+	/* 페이징 처리한 부분 최종 컨트롤러 */
 
 	// test 페이징 처리
 	@RequestMapping(value = "listPage")
@@ -146,11 +146,12 @@ public class BoardController {
 		model.addAttribute(boardService.read(bno));
 		return "/board/readPage";
 	}
+
 	// remove
 	@RequestMapping(value = "removePage", method = RequestMethod.POST)
 	public String remove2(@RequestParam Map map, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr)
 			throws Exception {
-		// 폼에 있는 데이터들이 Map으로 넘오온다 
+		// 폼에 있는 데이터들이 Map으로 넘오온다
 		logger.info("remove page 부분 : " + cri.toString());
 		boardService.remove2(map);
 		rttr.addFlashAttribute("page", cri.getPage());
@@ -158,14 +159,24 @@ public class BoardController {
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/board/listPage";
 	}
-	
-	//modify
-	@RequestMapping(value = "modifyPage", method = RequestMethod.POST)
-	public String modify2(@RequestParam("bno") int bno ,  @ModelAttribute("cri") Criteria cri,Model model)
+
+	// modify
+	@RequestMapping(value = "modifyPage", method = RequestMethod.GET)
+	public String modifyPage(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model)
 			throws Exception {
-		boardService.read(bno);
-		
-		model.addAttribute("boardVO",boardService.read(bno));
+		System.out.println("넘오언 cri" + cri.toString());
+		model.addAttribute("boardVO", boardService.read(bno));
+		return "/board/modifyPage";
+	}
+
+	@RequestMapping(value = "modifyPage", method = RequestMethod.POST)
+	public String modifyPagePost(@RequestParam Map map, @ModelAttribute("cri") Criteria cri, Model model,
+			RedirectAttributes rttr) throws Exception {
+		logger.info("모디파이 페이지================================================== : " + map.toString());
+		boardService.modify2(map);
+		rttr.addFlashAttribute("page", cri.getPage()); 
+		rttr.addFlashAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/board/listPage";
 	}
 
