@@ -95,17 +95,24 @@ public class PageMaker {
 	public void setCri(Criteria cri) {
 		this.cri = cri;
 	}
-	
+
 	// UriComponent를 통한 쿼리 검색
-	
+
 	public String makeQuery(int page) {
-		
-		UriComponents uriComponents = UriComponentsBuilder.newInstance()
-				.queryParam("page", page)
-				.queryParam("perPageNum", cri.getPerPageNum())
-				.build();
-		
+
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum()).build();
+
 		return uriComponents.toUriString();
 	}
-	
+
+	public String makeSearch(int page) {
+		UriComponents uriComponets = UriComponentsBuilder.newInstance().queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("searchType", ((SearchCriteria) cri).getSearchType())
+				.queryParam("keyword", ((SearchCriteria) cri).getKeyword()).build();
+
+		return uriComponets.toUriString();
+	}
+
 }
